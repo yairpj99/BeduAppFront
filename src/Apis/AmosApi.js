@@ -4,29 +4,29 @@ const URL = 'http://localhost:8080';
 
 const getAll = async () => {
     try {
-        const response = await axios.get(`${URL}/citas`);
+        const response = await axios.get(`${URL}/tutores`);
         return response.data;
     } catch (error) {
         throw error;
     }
 }
 
-const newPost= async (data)=>{
+const newAmo= async (data)=>{
     try{
-        const response = await axios.post(`${URL}/citas`,data);
+        const response = await axios.post(`${URL}/tutores`,data);
         return response.data;
     }catch(error){
         throw error;
     }
 }
 
-const deleteCita = async(id)=>{
+const deleteAmo = async(id)=>{
     try {
-        const response = await axios.delete(`${URL}/citas/${id}`);
+        const response = await axios.delete(`${URL}/tutores/${id}`);
         return response.data;
     } catch (error) {
         throw error;
     }
 }
 
-export default { getAll, newPost, deleteCita };
+export default { getAll, newAmo, deleteAmo };

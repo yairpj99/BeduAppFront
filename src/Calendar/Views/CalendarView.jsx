@@ -1,27 +1,31 @@
 import { Box, useColorModeValue } from '@chakra-ui/react'
 import { Calendar } from 'react-big-calendar'
 import 'react-big-calendar/lib/css/react-big-calendar.css'
-import { addHours } from 'date-fns'
+import { addHours, set } from 'date-fns'
 import { localizer, getMessagesES } from '../../helpers'
 import CalendarEventBox from '../Components/CalendarEventBox'
-import { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { startChangeView, startSetCitaSelect } from '../../Store/Calendar/Thunks'
+import useTransformarCitas from '../../Hooks/CitaConverter'
 
 const CalendarView = () => {
 
     const [lastView, setLastView]=useState(localStorage.getItem('lastView' || 'day'));
+    const [eventosTransformados, setEventos]=useState();
+    const {citas}=useSelector(state=>state.calendar);
 
     const dispatch = useDispatch();
 
-    const events = [
-        {
-            title: 'Prueba de Evento',
-            notes: 'Prueba de que si funciona',
-            start: new Date(),
-            end: addHours(new Date(), 1),
-        },
-    ];
+    useEffect(() => {
+        const { transformarCitas } = useTransformarCitas(citas);
+        const eventosTransformados = transformarCitas();
+        setEventos(eventosTransformados);
+
+    }, [citas]);
+
+
+
     const eventStyleGetter = (event, start, end) => {
         const style = {
             backgroundColor: '#319795',
@@ -53,7 +57,7 @@ const CalendarView = () => {
             <Calendar
                 culture='es'
                 localizer={localizer}
-                events={events}
+                events={eventosTransformados}
                 defaultView={lastView}
                 startAccessor="start"
                 endAccessor="end"

@@ -4,7 +4,7 @@ const URL = 'http://localhost:8080';
 
 const getAll = async () => {
     try {
-        const response = await axios.get(`${URL}/veterinarios`);
+        const response = await axios.get(`${URL}/mascotas`);
         return response.data;
     } catch (error) {
         console.log(error);
@@ -12,9 +12,9 @@ const getAll = async () => {
     }
 }
 
-const newVeterinario = async (data) => {
+const newMascota = async (data) => {
     try {
-        const response = await axios.post(`${URL}/veterinarios`,data);
+        const response = await axios.post(`${URL}/mascotas`,data);
         return response.data;
     } catch (error) {
         console.log(error);
@@ -22,9 +22,9 @@ const newVeterinario = async (data) => {
     }
 }
 
-const deleteVeterinario = async (id) => {
+const deleteMascota = async (id) => {
     try {
-        const response = await axios.delete(`${URL}/veterinarios/${id}`);
+        const response = await axios.delete(`${URL}/mascotas/${id}`);
         return response.data;
     } catch (error) {
         console.log(error);
@@ -32,4 +32,4 @@ const deleteVeterinario = async (id) => {
     }
 }
 
-export default { getAll, newVeterinario, deleteVeterinario };
+export default { getAll, newMascota, deleteMascota };

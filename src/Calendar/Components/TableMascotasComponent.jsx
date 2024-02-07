@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import Swal from 'sweetalert2';
 import { startDeleteVeterinario } from '../../Store/Veterinarios/Thunks';
 
-const TableVeterinariosComponent = ({ data }) => {
+const TableMascotasComponent = ({ data }) => {
   const dispatch = useDispatch();
   const toast = useToast();
 
@@ -35,22 +35,20 @@ const TableVeterinariosComponent = ({ data }) => {
             <Tr>
               <Th>ID</Th>
               <Th>Nombre</Th>
-              <Th>Correo electrónico</Th>
-              <Th>Teléfono</Th>
-              <Th>Cédula</Th>
-              <Th>Especialidad</Th>
+              <Th>Especie</Th>
+              <Th>Raza</Th>
+              <Th>Tutor</Th>
               <Th></Th>
             </Tr>
           </Thead>
           <Tbody>
-            {data.map((veterinario, index) => (
+            {data.map((mascota, index) => (
               <Tr key={index}>
-                <Td>{veterinario.lngVetID}</Td>
-                <Td>{veterinario.clsPersona.strNombre + " " + veterinario.clsPersona.strPaterno + " " + veterinario.clsPersona.strMaterno}</Td>
-                <Td>{veterinario.clsPersona.strEmail}</Td>
-                <Td>{veterinario.clsPersona.strTelefono}</Td>
-                <Td>{veterinario.strCedula}</Td>
-                <Td>{veterinario.strEspecialidad}</Td>
+                <Td>{mascota.lngMascotaID}</Td>
+                <Td>{mascota.strNombre}</Td>
+                <Td>{mascota.strEspecie}</Td>
+                <Td>{mascota.strRaza}</Td>
+                <Td>{mascota.clsTutor.clsTutor.strNombre+" "+mascota.clsTutor.clsTutor.strPaterno+" "+mascota.clsTutor.clsTutor.strMaterno}</Td>
                 <Td>
                   <IconButton colorScheme='red' onClick={() => handleDelete(index, veterinario.lngVetID)}>
                     <FaTrash />
@@ -65,4 +63,4 @@ const TableVeterinariosComponent = ({ data }) => {
   );
 };
 
-export default TableVeterinariosComponent;
+export default TableMascotasComponent;

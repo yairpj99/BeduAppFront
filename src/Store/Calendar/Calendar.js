@@ -5,7 +5,7 @@ export const CalendarSlice = createSlice({
     initialState:{
         view: 'calendar',
         citaSelect: {},
-        citas: {},
+        citas: [],
         errorMessage: '',
     },
     reducers:{
@@ -21,9 +21,23 @@ export const CalendarSlice = createSlice({
         },
         setError:(state,action)=>{
             state.errorMessage=action.payload;
-        }
+        },
+        setNewCita: (state, action) => {
+            state.citas.push(action.payload);
+        },
+        deleteCitaById: (state, action) => {
+            const indexToDelete = action.payload;
+          
+            if (indexToDelete >= 0 && indexToDelete < state.citas.length) {
+              state.citas = state.citas.filter((cita, index) => index !== indexToDelete);
+            } else {
+              console.error('Índice de cita a eliminar fuera de rango.');
+            }
+          
+            state.view = 'calendar';
+          }
     }
 });
 
-export const {setView, setCitaSelect, setCitas, setError}=CalendarSlice.actions;
+export const {setView, setCitaSelect, setCitas, setError, setNewCita, deleteCitaById}=CalendarSlice.actions;
   

@@ -62,7 +62,7 @@ const AddButton = () => {
                   textColor: '#DD6B20'
                 }}
                 leftIcon={<MdPersonAdd fontSize={"30px"}/>}
-                onClick={() => dispatch(startChangeView('addCita'))}
+                onClick={() => dispatch(startChangeView('addAmo'))}
               >
                 Nuevo Amo
               </Button>
@@ -78,7 +78,7 @@ const AddButton = () => {
                   textColor: '#3182CE'
                 }}
                 leftIcon={<MdPets fontSize={"30px"}/>}
-                onClick={() => dispatch(startChangeView('addCita'))}
+                onClick={() => dispatch(startChangeView('addMascota'))}
               >
                 Nueva Mascota
               </Button>

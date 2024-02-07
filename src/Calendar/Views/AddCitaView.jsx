@@ -1,7 +1,7 @@
-import { Box, Button, Divider, Flex, FormControl, FormErrorMessage, FormLabel, IconButton, Input, InputGroup, InputRightElement, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalOverlay, NumberDecrementStepper, NumberIncrementStepper, NumberInput, NumberInputField, NumberInputStepper, Spacer, Text, Textarea } from '@chakra-ui/react'
+import { Box, Button, Divider, Flex, FormControl, FormErrorMessage, FormLabel, IconButton, Input, InputGroup, InputRightElement, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalOverlay, NumberDecrementStepper, NumberIncrementStepper, NumberInput, NumberInputField, NumberInputStepper, Spacer, Text, Textarea, useToast } from '@chakra-ui/react'
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { startChangeView } from '../../Store/Calendar/Thunks';
+import { startAddNewCita, startChangeView } from '../../Store/Calendar/Thunks';
 import { IoMdCloseCircle } from 'react-icons/io';
 import { IoSaveSharp, IoSearchCircle } from "react-icons/io5";
 import { UseFormHook } from '../../Hooks/UseFormHook';
@@ -9,7 +9,8 @@ import { UseFormHook } from '../../Hooks/UseFormHook';
 const AddCitaView = () => {
     const dispatch = useDispatch();
     const [formSubmitted, setformSubmitted] = useState(false);
-    const [input, setInput] = useState('')
+    const [isLoading, setIsLoading] = useState(false);
+    const toast = useToast();
     const formData={
         clsDate: '',
         clsTime: '',
@@ -51,12 +52,19 @@ const AddCitaView = () => {
         });
     };
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async(event) => {
+        setIsLoading(true);
         event.preventDefault();
         setformSubmitted(true)
         if(isFormValid){
-            console.log("si");
+            const resp = await dispatch(startAddNewCita(formState));
+            if(resp.ok){
+                toast({title: 'Cita generada ha exitosamente', status: 'success', isClosable: true, description: 'La cita se genero correctamente con el id '+resp.id, position: 'top'})
+            }else{
+                toast({title: 'Error', status: 'error', isClosable: true, description: resp.message, position: 'top'})
+            }
         }
+        setIsLoading(false);
     }
 
     return (
@@ -128,7 +136,7 @@ const AddCitaView = () => {
                     <ModalFooter>
                         <Flex>
                             <Spacer />
-                            <Button type='submit' onClick={handleSubmit} rightIcon={<IoSaveSharp />} variant={"outline"} colorScheme='green' >Guardar</Button>
+                            <Button isLoading={isLoading} type='submit' onClick={handleSubmit} rightIcon={<IoSaveSharp />} variant={"outline"} colorScheme='green' >Guardar</Button>
                         </Flex>
                     </ModalFooter>
                 </ModalContent>

@@ -13,3 +13,14 @@ export const startSetVeterinarios = () => {
         }
     };
 };
+
+export const startDeleteVeterinario=(index, lngVetID)=>{
+    return async(dispatch)=>{
+        try{
+            const resp = await ConsultaVeterinariosApi.deleteVeterinario(lngVetID);
+            return resp;
+        }catch(error){
+
+        }
+    }
+}

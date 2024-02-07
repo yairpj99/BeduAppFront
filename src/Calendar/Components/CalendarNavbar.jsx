@@ -21,10 +21,10 @@ const CalendarNavbar = () => {
             <IconButton onClick={()=>navigate("/Home")} icon={<FiCalendar fontSize={"25px"}/>} variant="ghost" />
           </Tooltip>
           <Tooltip label="Mascotas" hasArrow>
-            <IconButton icon={<MdPets fontSize={"25px"}/>} variant="ghost" />
+            <IconButton  onClick={()=>navigate("/Mascotas")} icon={<MdPets fontSize={"25px"}/>} variant="ghost" />
           </Tooltip>
-          <Tooltip label="Amos" hasArrow>
-            <IconButton icon={<IoIosPerson fontSize={"25px"} />} variant="ghost" />
+          <Tooltip label="Tutores" hasArrow>
+            <IconButton onClick={()=>navigate("/Tutores")} icon={<IoIosPerson fontSize={"25px"} />} variant="ghost" />
           </Tooltip>
           <Tooltip label="Veterinarios" hasArrow>
             <IconButton onClick={()=>navigate("/Veterinarios")}  icon={<FaUserDoctor fontSize={"20px"} />} variant="ghost" />

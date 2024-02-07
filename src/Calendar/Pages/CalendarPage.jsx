@@ -7,6 +7,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import ModalCita from '../Views/ModalCita';
 import AddCitaView from '../Views/AddCitaView';
 import { startSetCitas } from '../../Store/Calendar/Thunks';
+import AddAmoView from '../Views/AddAmoView';
+import LoadingCitasView from '../Views/LoadingCitasView';
+import AddMascota from '../Views/AddMascota';
 
 const CalendarPage = () => {
   const { view } = useSelector((state) => state.calendar);
@@ -27,12 +30,20 @@ const CalendarPage = () => {
 
   return (
     <CalendarLayout>
+      {(!isLoading)?
       <Box position="relative" minHeight="100vh">
         <CalendarView />
         {(view === 'cita') ? <ModalCita /> : null}
         {(view === 'addCita') ? <AddCitaView /> : null}
+        {(view === 'addAmo')? <AddAmoView/> : null}
+        {(view === 'addMascota')? <AddMascota/> : null}
         <AddButton />
       </Box>
+      :
+      <Box>
+        <LoadingCitasView/>
+      </Box>
+      }
     </CalendarLayout>
   );
 };
